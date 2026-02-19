@@ -3,60 +3,92 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SAP HANA Style Glass UI - Glass ERP</title>
+  <title>SP-7 K NAQM - Glass ERP (SAP HANA Style)</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       min-height: 100vh;
-      background: linear-gradient(135deg, #e5f0f9, #f0f7ff, #e0efff); /* SAP light blue-gray gradient */
+      background: linear-gradient(135deg, #e5f0f9, #f0f7ff, #e0efff);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       color: #1e293b;
       display: flex;
     }
 
-    /* Left Sidebar - SAP HANA / Fiori menu style */
+    /* Sidebar - Collapsible like SAP HANA/Fiori */
     .sidebar {
       width: 280px;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(14px);
       border-right: 1px solid rgba(226,232,240,0.8);
-      padding: 20px 0;
       height: 100vh;
       position: fixed;
       overflow-y: auto;
+      transition: width 0.3s;
       box-shadow: 2px 0 12px rgba(0,0,0,0.05);
     }
 
     .sidebar-header {
-      padding: 16px 24px;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: #0f766e; /* SAP teal */
-      border-bottom: 1px solid rgba(226,232,240,0.6);
-      margin-bottom: 16px;
+      padding: 18px 24px;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #0f766e;
+      border-bottom: 1px solid rgba(226,232,240,0.7);
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
+
+    .sidebar-header i { font-size: 1.6rem; }
 
     .menu-section {
-      margin: 20px 0;
+      margin: 16px 0;
     }
 
-    .menu-section h3 {
-      padding: 0 24px 8px;
+    .menu-header {
+      padding: 12px 24px;
       font-size: 0.95rem;
       font-weight: 600;
       color: #475569;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.6px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    .menu-header:hover { background: rgba(15,118,110,0.06); }
+
+    .menu-header i.toggle { transition: transform 0.3s; }
+    .menu-header.collapsed i.toggle { transform: rotate(-90deg); }
+
+    .menu-items {
+      overflow: hidden;
+      transition: max-height 0.4s ease;
     }
 
     .menu-item {
-      display: flex;
-      align-items: center;
-      padding: 12px 24px;
+      padding: 12px 24px 12px 52px;
       color: #1e293b;
       cursor: pointer;
       transition: all 0.2s;
+      position: relative;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: #0f766e;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s;
     }
 
     .menu-item:hover, .menu-item.active {
@@ -64,26 +96,21 @@
       color: #0f766e;
     }
 
-    .menu-item i {
-      margin-right: 12px;
-      width: 20px;
-      text-align: center;
-      color: #64748b;
-    }
+    .menu-item:hover::before, .menu-item.active::before { opacity: 1; }
 
     /* Main Content */
     .main {
       margin-left: 280px;
       flex: 1;
       padding: 80px 32px 32px;
+      transition: margin-left 0.3s;
     }
 
-    /* Top Shell Bar */
     .shell-bar {
       position: fixed;
       top: 0; left: 280px; right: 0;
       height: 56px;
-      background: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.96);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(226,232,240,0.8);
       display: flex;
@@ -93,144 +120,139 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
 
-    .shell-bar .logo { font-weight: 600; font-size: 1.2rem; color: #0f766e; }
+    .shell-bar .logo { font-weight: 700; font-size: 1.25rem; color: #0f766e; }
     .shell-bar .right { margin-left: auto; display: flex; gap: 24px; align-items: center; }
-    .shell-bar i { font-size: 1.3rem; color: #475569; cursor: pointer; }
+    .shell-bar i { font-size: 1.3rem; color: #475569; cursor: pointer; transition: color 0.2s; }
     .shell-bar i:hover { color: #0f766e; }
     .avatar { width: 36px; height: 36px; border-radius: 50%; background: #0f766e; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 
-    /* Dashboard Cards - SAP tile style */
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.75);
-      backdrop-filter: blur(18px);
+    /* Module Page Placeholder */
+    .module-page {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(12px);
       border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
       border: 1px solid rgba(226,232,240,0.7);
-      padding: 24px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-      transition: all 0.25s;
     }
 
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.1);
-    }
-
-    .card h4 {
-      font-size: 1.2rem;
-      margin-bottom: 12px;
-      color: #0f766e;
-    }
-
-    .card ul {
-      list-style: none;
-    }
-
-    .card li {
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(226,232,240,0.4);
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .card li:hover { color: #0f766e; }
-    .card li:last-child { border-bottom: none; }
+    .module-page h1 { color: #0f766e; margin-bottom: 16px; }
+    .module-page p { line-height: 1.6; color: #475569; }
   </style>
 </head>
 <body>
 
-  <!-- Sidebar Menu -->
+  <!-- Sidebar -->
   <div class="sidebar">
-    <div class="sidebar-header">Glass ERP</div>
+    <div class="sidebar-header"><i class="fas fa-glass-cheers"></i> SP-7 K NAQM</div>
 
+    <!-- Master's -->
     <div class="menu-section">
-      <h3>Master’s</h3>
-      <div class="menu-item"><i class="fas fa-cube"></i>Item Master</div>
-      <div class="menu-item"><i class="fas fa-tag"></i>Price Master</div>
-      <div class="menu-item"><i class="fas fa-cogs"></i>Process Master</div>
-      <div class="menu-item"><i class="fas fa-scroll"></i>Z Rule</div>
-      <div class="menu-item"><i class="fas fa-expand"></i>Jumbo Size</div>
-      <div class="menu-item"><i class="fas fa-glass-whiskey"></i>Glass Type</div>
-      <div class="menu-item"><i class="fas fa-route"></i>Route Master</div>
-      <div class="menu-item"><i class="fas fa-handshake"></i>Payment Terms</div>
-      <div class="menu-item"><i class="fas fa-film"></i>Film Type</div>
-      <div class="menu-item"><i class="fas fa-university"></i>Bank Details</div>
-      <div class="menu-item"><i class="fas fa-truck"></i>Vehicle Master</div>
-      <div class="menu-item"><i class="fas fa-plus-circle"></i>Other Charges</div>
-      <div class="menu-item"><i class="fas fa-comment-dots"></i>Remarks</div>
+      <div class="menu-header" data-target="masters"><span>Master’s</span><i class="fas fa-chevron-down toggle"></i></div>
+      <div class="menu-items" id="masters">
+        <div class="menu-item" data-module="item-master">Item Master</div>
+        <div class="menu-item" data-module="price-master">Price Master</div>
+        <div class="menu-item" data-module="process-master">Process Master</div>
+        <div class="menu-item" data-module="z-rule">Z Rule</div>
+        <div class="menu-item" data-module="jumbo-size">Jumbo Size</div>
+        <div class="menu-item" data-module="glass-type">Glass Type</div>
+        <div class="menu-item" data-module="route-master">Route Master</div>
+        <div class="menu-item" data-module="payment-terms">Payment Terms</div>
+        <div class="menu-item" data-module="film-type">Film Type</div>
+        <div class="menu-item" data-module="bank-details">Bank Details</div>
+        <div class="menu-item" data-module="vehicle-master">Vehicle Master</div>
+        <div class="menu-item" data-module="other-charges">Other Charges</div>
+        <div class="menu-item" data-module="remarks">Remarks</div>
+      </div>
     </div>
 
+    <!-- Transactions -->
     <div class="menu-section">
-      <h3>Transaction’s</h3>
-      <div class="menu-item"><i class="fas fa-file-invoice-dollar"></i>Proforma</div>
-      <div class="menu-item"><i class="fas fa-file-signature"></i>Work Order</div>
-      <div class="menu-item"><i class="fas fa-file-invoice"></i>Invoice</div>
-      <div class="menu-item"><i class="fas fa-optimize"></i>Optimizer</div>
-      <div class="menu-item"><i class="fas fa-sticky-note"></i>Sticker’s</div>
+      <div class="menu-header" data-target="transactions"><span>Transaction’s</span><i class="fas fa-chevron-down toggle"></i></div>
+      <div class="menu-items" id="transactions">
+        <div class="menu-item" data-module="proforma">Proforma</div>
+        <div class="menu-item" data-module="work-order">Work Order</div>
+        <div class="menu-item" data-module="invoice">Invoice</div>
+        <div class="menu-item" data-module="optimizer">Optimizer</div>
+        <div class="menu-item" data-module="stickers">Sticker’s</div>
+      </div>
     </div>
 
+    <!-- Stocks -->
     <div class="menu-section">
-      <h3>Stocks</h3>
-      <div class="menu-item"><i class="fas fa-tools"></i>Hardware Stocks</div>
-      <div class="menu-item"><i class="fas fa-glass-martini"></i>Glass Stock</div>
+      <div class="menu-header" data-target="stocks"><span>Stocks</span><i class="fas fa-chevron-down toggle"></i></div>
+      <div class="menu-items" id="stocks">
+        <div class="menu-item" data-module="hardware-stocks">Hardware Stocks</div>
+        <div class="menu-item" data-module="glass-stock">Glass Stock</div>
+      </div>
     </div>
 
+    <!-- Setting -->
     <div class="menu-section">
-      <h3>Setting</h3>
-      <div class="menu-item"><i class="fas fa-sliders-h"></i>Set Default’s</div>
-      <div class="menu-item"><i class="fas fa-folder"></i>File Storage Path</div>
-      <div class="menu-item"><i class="fas fa-network-wired"></i>Network Setting</div>
-      <div class="menu-item"><i class="fas fa-database"></i>Backup</div>
-      <div class="menu-item"><i class="fas fa-sms"></i>SMS/Email Setting</div>
-      <div class="menu-item"><i class="fas fa-file-invoice"></i>Billing Setting</div>
-      <div class="menu-item"><i class="fas fa-print"></i>Print Setting</div>
-      <div class="menu-item"><i class="fas fa-user-shield"></i>Access Control</div>
-      <div class="menu-item"><i class="fas fa-sync"></i>Check for Updates</div>
+      <div class="menu-header" data-target="settings"><span>Setting</span><i class="fas fa-chevron-down toggle"></i></div>
+      <div class="menu-items" id="settings">
+        <div class="menu-item" data-module="set-defaults">Set Default’s</div>
+        <div class="menu-item" data-module="file-path">File Storage Path</div>
+        <div class="menu-item" data-module="network">Network Setting</div>
+        <div class="menu-item" data-module="backup">Backup</div>
+        <div class="menu-item" data-module="sms-email">SMS/Email Setting</div>
+        <div class="menu-item" data-module="billing">Billing Setting</div>
+        <div class="menu-item" data-module="print">Print Setting</div>
+        <div class="menu-item" data-module="access">Access Control</div>
+        <div class="menu-item" data-module="updates">Check for Updates</div>
+      </div>
     </div>
 
+    <!-- Customer’s -->
     <div class="menu-section">
-      <h3>Customer’s</h3>
-      <div class="menu-item"><i class="fas fa-user-plus"></i>New Customer</div>
-      <div class="menu-item"><i class="fas fa-users"></i>View Customer’s</div>
+      <div class="menu-header" data-target="customers"><span>Customer’s</span><i class="fas fa-chevron-down toggle"></i></div>
+      <div class="menu-items" id="customers">
+        <div class="menu-item" data-module="new-customer">New Customer</div>
+        <div class="menu-item" data-module="view-customers">View Customer’s</div>
+      </div>
     </div>
 
+    <!-- Sales Person -->
     <div class="menu-section">
-      <h3>Sales Person</h3>
-      <div class="menu-item"><i class="fas fa-user-tie"></i>New Sales Person</div>
-      <div class="menu-item"><i class="fas fa-list-ul"></i>View Sales Person</div>
+      <div class="menu-header" data-target="sales"><span>Sales Person</span><i class="fas fa-chevron-down toggle"></i></div>
+      <div class="menu-items" id="sales">
+        <div class="menu-item" data-module="new-sales">New Sales Person</div>
+        <div class="menu-item" data-module="view-sales">View Sales Person</div>
+      </div>
     </div>
 
+    <!-- Report’s -->
     <div class="menu-section">
-      <h3>Report’s</h3>
-      <div class="menu-item"><i class="fas fa-chart-bar"></i>Proforma Report</div>
-      <div class="menu-item"><i class="fas fa-file-alt"></i>Invoice Report</div>
-      <div class="menu-item"><i class="fas fa-user-chart"></i>Sales Man Report</div>
-      <div class="menu-item"><i class="fas fa-industry"></i>Production Report</div>
-      <div class="menu-item"><i class="fas fa-file-contract"></i>WorkOrder Report</div>
-      <div class="menu-item"><i class="fas fa-boxes"></i>Glass Stock</div>
-      <div class="menu-item"><i class="fas fa-broken"></i>Breakage Report</div>
-      <div class="menu-item"><i class="fas fa-ban"></i>Rejections</div>
-      <div class="menu-item"><i class="fas fa-clock"></i>Yet To Bill</div>
-      <div class="menu-item"><i class="fas fa-square-root-alt"></i>Billed Sqmt</div>
-      <div class="menu-item"><i class="fas fa-file-export"></i>Tally Sales Export</div>
-      <div class="menu-item"><i class="fas fa-file-invoice"></i>Direct Invoice Report</div>
-      <div class="menu-item"><i class="fas fa-minus-circle"></i>Credit Note Report</div>
+      <div class="menu-header" data-target="reports"><span>Report’s</span><i class="fas fa-chevron-down toggle"></i></div>
+      <div class="menu-items" id="reports">
+        <div class="menu-item" data-module="proforma-report">Proforma Report</div>
+        <div class="menu-item" data-module="invoice-report">Invoice Report</div>
+        <div class="menu-item" data-module="salesman-report">Sales Man Report</div>
+        <div class="menu-item" data-module="production-report">Production Report</div>
+        <div class="menu-item" data-module="workorder-report">WorkOrder Report</div>
+        <div class="menu-item" data-module="glass-stock-report">Glass Stock</div>
+        <div class="menu-item" data-module="breakage">Breakage Report</div>
+        <div class="menu-item" data-module="rejections">Rejections</div>
+        <div class="menu-item" data-module="yet-to-bill">Yet To Bill</div>
+        <div class="menu-item" data-module="billed-sqmt">Billed Sqmt</div>
+        <div class="menu-item" data-module="tally-export">Tally Sales Export</div>
+        <div class="menu-item" data-module="direct-invoice">Direct Invoice Report</div>
+        <div class="menu-item" data-module="credit-note">Credit Note Report</div>
+      </div>
     </div>
 
+    <!-- User Account’s -->
     <div class="menu-section">
-      <h3>User Account’s</h3>
-      <div class="menu-item"><i class="fas fa-users-cog"></i>User’s</div>
+      <div class="menu-header" data-target="users"><span>User Account’s</span><i class="fas fa-chevron-down toggle"></i></div>
+      <div class="menu-items" id="users">
+        <div class="menu-item" data-module="users-list">User’s</div>
+      </div>
     </div>
   </div>
 
   <!-- Top Shell Bar -->
   <div class="shell-bar">
-    <div class="logo">Glass ERP Dashboard</div>
+    <div class="logo">SP-7 K NAQM Dashboard</div>
     <div class="right">
       <i class="fas fa-bell"></i>
       <i class="fas fa-cog"></i>
@@ -238,62 +260,54 @@
     </div>
   </div>
 
-  <!-- Main Dashboard Area -->
+  <!-- Main Area - Dynamic Module Content -->
   <div class="main">
-    <h2 style="margin-bottom: 24px; color: #0f766e;">Welcome to Glass ERP (SAP HANA Inspired)</h2>
-
-    <div class="dashboard">
-      <!-- Masters Card -->
-      <div class="card">
-        <h4>Master Data</h4>
-        <ul>
-          <li>Item Master / Price Master</li>
-          <li>Glass Type / Film Type</li>
-          <li>Process / Route / Vehicle Master</li>
-          <li>Payment Terms / Bank Details</li>
-          <li>Z Rule / Jumbo Size / Other Charges</li>
-        </ul>
-      </div>
-
-      <!-- Transactions Card -->
-      <div class="card">
-        <h4>Transactions</h4>
-        <ul>
-          <li>Proforma → Work Order → Invoice</li>
-          <li>Optimizer / Sticker’s</li>
-        </ul>
-      </div>
-
-      <!-- Stocks & Settings -->
-      <div class="card">
-        <h4>Stocks & Settings</h4>
-        <ul>
-          <li>Glass / Hardware Stocks</li>
-          <li>Backup / SMS-Email / Print / Billing Settings</li>
-          <li>Access Control / Network / Updates</li>
-        </ul>
-      </div>
-
-      <!-- Customers & Sales -->
-      <div class="card">
-        <h4>Customers & Sales Team</h4>
-        <ul>
-          <li>New / View Customers</li>
-          <li>New / View Sales Persons</li>
-        </ul>
-      </div>
-
-      <!-- Reports -->
-      <div class="card">
-        <h4>Key Reports</h4>
-        <ul>
-          <li>Invoice / Proforma / Production / Breakage</li>
-          <li>Glass Stock / Rejections / Yet To Bill</li>
-          <li>Tally Export / Credit Note</li>
-        </ul>
-      </div>
+    <div id="content-area">
+      <h2 style="color: #0f766e; margin-bottom: 16px;">Welcome to SP-7 K NAQM</h2>
+      <p style="color: #475569; font-size: 1.1rem;">Select any module from the left menu to get started. All sections are collapsible for better focus.</p>
     </div>
   </div>
+
+  <script>
+    // Collapsible Sections
+    document.querySelectorAll('.menu-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const targetId = header.getAttribute('data-target');
+        const items = document.getElementById(targetId);
+        const icon = header.querySelector('.toggle');
+
+        if (header.classList.contains('collapsed')) {
+          items.style.maxHeight = items.scrollHeight + 'px';
+          header.classList.remove('collapsed');
+        } else {
+          items.style.maxHeight = '0';
+          header.classList.add('collapsed');
+        }
+      });
+    });
+
+    // Module Click - Show Placeholder Page
+    document.querySelectorAll('.menu-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const moduleName = item.getAttribute('data-module');
+        const content = document.getElementById('content-area');
+
+        // Remove active from all
+        document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+
+        // Simple module placeholder (real mein yahan form/table load karna)
+        content.innerHTML = `
+          <div class="module-page">
+            <h1>${moduleName.replace(/-/g, ' ').toUpperCase()}</h1>
+            <p>This is the working interface for <strong>${moduleName.replace(/-/g, ' ')}</strong> module in SP-7 K NAQM.</p>
+            <p>In real application yahan data entry forms, tables, grids, SAP HANA style charts, filters, etc. aayenge.</p>
+            <p>Version: SP-7 K NAQM | User: RACHIT | Delhi</p>
+          </div>
+        `;
+      });
+    });
+  </script>
 
 </body>
 </html>
