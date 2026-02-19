@@ -60,7 +60,6 @@
     .menu-items {
       overflow: hidden;
       transition: max-height 0.4s ease;
-      max-height: 1000px; /* initial open */
     }
 
     .menu-item {
@@ -130,29 +129,27 @@
     th { background: #f1f5f9; font-weight: 600; }
     .form-group { margin-bottom: 16px; }
     .form-group label { display: block; margin-bottom: 6px; font-weight: 500; }
-    .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
     .btn { padding: 10px 20px; background: #0f766e; color: white; border: none; border-radius: 6px; cursor: pointer; }
     .btn:hover { background: #0d5f59; }
-    .btn-secondary { background: #64748b; }
+    .btn-secondary { background: #64748b; color: white; }
   </style>
 </head>
 <body>
 
-  <!-- Sidebar -->
+  <!-- Sidebar with FULL LIST -->
   <div class="sidebar">
     <div class="sidebar-header"><i class="fas fa-glass-cheers"></i> SP-7</div>
 
-    <!-- Master's (example with some open by default) -->
     <div class="menu-section">
       <div class="menu-header" data-target="masters"><span>Master’s</span><i class="fas fa-chevron-down toggle"></i></div>
       <div class="menu-items" id="masters">
         <div class="menu-item active" data-module="item-master">Item Master</div>
         <div class="menu-item" data-module="price-master">Price Master</div>
-        <div class="menu-item" data-module="glass-type">Glass Type</div>
-        <!-- baaki items same as before -->
         <div class="menu-item" data-module="process-master">Process Master</div>
         <div class="menu-item" data-module="z-rule">Z Rule</div>
         <div class="menu-item" data-module="jumbo-size">Jumbo Size</div>
+        <div class="menu-item" data-module="glass-type">Glass Type</div>
         <div class="menu-item" data-module="route-master">Route Master</div>
         <div class="menu-item" data-module="payment-terms">Payment Terms</div>
         <div class="menu-item" data-module="film-type">Film Type</div>
@@ -163,39 +160,84 @@
       </div>
     </div>
 
-    <!-- Other sections same as previous, abbreviated for brevity -->
     <div class="menu-section">
       <div class="menu-header" data-target="transactions"><span>Transaction’s</span><i class="fas fa-chevron-down toggle"></i></div>
       <div class="menu-items" id="transactions">
         <div class="menu-item" data-module="proforma">Proforma</div>
         <div class="menu-item" data-module="work-order">Work Order</div>
         <div class="menu-item" data-module="invoice">Invoice</div>
-        <!-- etc. -->
+        <div class="menu-item" data-module="optimizer">Optimizer</div>
+        <div class="menu-item" data-module="stickers">Sticker’s</div>
       </div>
     </div>
 
-    <!-- Stocks -->
     <div class="menu-section">
       <div class="menu-header" data-target="stocks"><span>Stocks</span><i class="fas fa-chevron-down toggle"></i></div>
       <div class="menu-items" id="stocks">
+        <div class="menu-item" data-module="hardware-stocks">Hardware Stocks</div>
         <div class="menu-item" data-module="glass-stock">Glass Stock</div>
-        <!-- etc. -->
       </div>
     </div>
 
-    <!-- Customers -->
+    <div class="menu-section">
+      <div class="menu-header" data-target="settings"><span>Setting</span><i class="fas fa-chevron-down toggle"></i></div>
+      <div class="menu-items" id="settings">
+        <div class="menu-item" data-module="set-defaults">Set Default’s</div>
+        <div class="menu-item" data-module="file-path">File Storage Path</div>
+        <div class="menu-item" data-module="network">Network Setting</div>
+        <div class="menu-item" data-module="backup">Backup</div>
+        <div class="menu-item" data-module="sms-email">SMS/Email Setting</div>
+        <div class="menu-item" data-module="billing">Billing Setting</div>
+        <div class="menu-item" data-module="print">Print Setting</div>
+        <div class="menu-item" data-module="access">Access Control</div>
+        <div class="menu-item" data-module="updates">Check for Updates</div>
+      </div>
+    </div>
+
     <div class="menu-section">
       <div class="menu-header" data-target="customers"><span>Customer’s</span><i class="fas fa-chevron-down toggle"></i></div>
       <div class="menu-items" id="customers">
         <div class="menu-item" data-module="new-customer">New Customer</div>
-        <!-- etc. -->
+        <div class="menu-item" data-module="view-customers">View Customer’s</div>
       </div>
     </div>
 
-    <!-- Reports, Settings, Sales, Users same as before -->
+    <div class="menu-section">
+      <div class="menu-header" data-target="sales"><span>Sales Person</span><i class="fas fa-chevron-down toggle"></i></div>
+      <div class="menu-items" id="sales">
+        <div class="menu-item" data-module="new-sales">New Sales Person</div>
+        <div class="menu-item" data-module="view-sales">View Sales Person</div>
+      </div>
+    </div>
+
+    <div class="menu-section">
+      <div class="menu-header" data-target="reports"><span>Report’s</span><i class="fas fa-chevron-down toggle"></i></div>
+      <div class="menu-items" id="reports">
+        <div class="menu-item" data-module="proforma-report">Proforma Report</div>
+        <div class="menu-item" data-module="invoice-report">Invoice Report</div>
+        <div class="menu-item" data-module="salesman-report">Sales Man Report</div>
+        <div class="menu-item" data-module="production-report">Production Report</div>
+        <div class="menu-item" data-module="workorder-report">WorkOrder Report</div>
+        <div class="menu-item" data-module="glass-stock-report">Glass Stock</div>
+        <div class="menu-item" data-module="breakage">Breakage Report</div>
+        <div class="menu-item" data-module="rejections">Rejections</div>
+        <div class="menu-item" data-module="yet-to-bill">Yet To Bill</div>
+        <div class="menu-item" data-module="billed-sqmt">Billed Sqmt</div>
+        <div class="menu-item" data-module="tally-export">Tally Sales Export</div>
+        <div class="menu-item" data-module="direct-invoice">Direct Invoice Report</div>
+        <div class="menu-item" data-module="credit-note">Credit Note Report</div>
+      </div>
+    </div>
+
+    <div class="menu-section">
+      <div class="menu-header" data-target="users"><span>User Account’s</span><i class="fas fa-chevron-down toggle"></i></div>
+      <div class="menu-items" id="users">
+        <div class="menu-item" data-module="users">User’s</div>
+      </div>
+    </div>
   </div>
 
-  <!-- Top Bar -->
+  <!-- Top Shell Bar -->
   <div class="shell-bar">
     <div class="logo">SP-7 Dashboard</div>
     <div class="right">
@@ -205,44 +247,21 @@
     </div>
   </div>
 
-  <!-- Main Content -->
+  <!-- Main Content Area -->
   <div class="main">
     <div id="content-area">
-      <!-- Default content loads Item Master as example -->
+      <!-- Default: Item Master loads -->
       <div class="module-page">
         <h1>Item Master</h1>
-        <p>Manage all glass items, hardware, films etc. Bilkul SAP Fiori table style mein.</p>
-        
-        <div style="margin: 20px 0;">
-          <button class="btn">+ Add New Item</button>
-        </div>
-
+        <p>Manage items, glass types, hardware etc. in SP-7.</p>
+        <button class="btn">+ Add New Item</button>
         <table>
           <thead>
-            <tr>
-              <th>Item Code</th>
-              <th>Description</th>
-              <th>Type</th>
-              <th>Unit</th>
-              <th>Actions</th>
-            </tr>
+            <tr><th>Item Code</th><th>Description</th><th>Type</th><th>Unit</th><th>Actions</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td>GLS-001</td>
-              <td>Clear Float Glass 8mm</td>
-              <td>Glass</td>
-              <td>Sqft</td>
-              <td><button class="btn-secondary">Edit</button> <button class="btn-secondary">Delete</button></td>
-            </tr>
-            <tr>
-              <td>HRD-002</td>
-              <td>Patch Fitting SS</td>
-              <td>Hardware</td>
-              <td>Pcs</td>
-              <td><button class="btn-secondary">Edit</button> <button class="btn-secondary">Delete</button></td>
-            </tr>
-            <!-- Add more rows as needed -->
+            <tr><td>GLS-001</td><td>Clear Float 8mm</td><td>Glass</td><td>Sqft</td><td><button class="btn-secondary">Edit</button> <button class="btn-secondary">Delete</button></td></tr>
+            <tr><td>HRD-005</td><td>SS Patch Fitting</td><td>Hardware</td><td>Pcs</td><td><button class="btn-secondary">Edit</button> <button class="btn-secondary">Delete</button></td></tr>
           </tbody>
         </table>
       </div>
@@ -250,69 +269,61 @@
   </div>
 
   <script>
-    // Collapsible logic
+    // Collapsible Menu Logic
     document.querySelectorAll('.menu-header').forEach(header => {
       header.addEventListener('click', () => {
-        const target = document.getElementById(header.dataset.target);
+        const targetId = header.getAttribute('data-target');
+        const items = document.getElementById(targetId);
         const icon = header.querySelector('.toggle');
-        header.classList.toggle('collapsed');
-        target.style.maxHeight = header.classList.contains('collapsed') ? '0px' : target.scrollHeight + 'px';
+        if (header.classList.contains('collapsed')) {
+          items.style.maxHeight = items.scrollHeight + 'px';
+          header.classList.remove('collapsed');
+        } else {
+          items.style.maxHeight = '0';
+          header.classList.add('collapsed');
+        }
       });
-      // Open Master's by default
-      if (header.dataset.target === 'masters') {
-        header.click(); // auto open on load
+      // Auto-open Master's on load
+      if (header.getAttribute('data-target') === 'masters') {
+        header.click();
       }
     });
 
-    // Module loading with real working pages
+    // Load module content on click
     document.querySelectorAll('.menu-item').forEach(item => {
       item.addEventListener('click', () => {
         document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
         item.classList.add('active');
 
-        const mod = item.dataset.module;
+        const mod = item.getAttribute('data-module');
         let html = `<div class="module-page"><h1>${mod.replace(/-/g, ' ').toUpperCase()}</h1>`;
 
+        // Example realistic pages for key modules
         if (mod === 'item-master') {
-          html += `
-            <p>Item Master - Add, edit, view all items.</p>
-            <button class="btn">+ Add New Item</button>
-            <table>
-              <thead><tr><th>Code</th><th>Name</th><th>Category</th><th>Price</th><th>Actions</th></tr></thead>
-              <tbody>
-                <tr><td>ITM001</td><td>Toughened Glass 10mm</td><td>Glass</td><td>₹120/sqft</td><td><button class="btn-secondary">Edit</button></td></tr>
-                <!-- more dummy rows -->
-              </tbody>
-            </table>`;
-        } else if (mod === 'glass-stock') {
-          html += `
-            <p>Current Glass Stock Levels</p>
-            <input type="text" placeholder="Search by type or size..." style="padding:10px; width:300px; margin-bottom:16px;">
-            <table>
-              <thead><tr><th>Item</th><th>Thickness</th><th>Available Sqft</th><th>Location</th></tr></thead>
-              <tbody>
-                <tr><td>Clear 8mm</td><td>8mm</td><td>4500</td><td>Godown A</td></tr>
-              </tbody>
-            </table>`;
+          html += `<p>Item Master - Add/edit items</p>
+            <button class="btn">+ Add New</button>
+            <table><thead><tr><th>Code</th><th>Name</th><th>Category</th><th>Actions</th></tr></thead>
+            <tbody><tr><td>ITM001</td><td>Toughened 10mm</td><td>Glass</td><td><button class="btn-secondary">Edit</button></td></tr></tbody></table>`;
+        } else if (mod.includes('glass-stock') || mod === 'glass-stock-report') {
+          html += `<p>Glass Stock Overview</p>
+            <input type="text" placeholder="Search stock..." style="padding:10px; width:300px; margin-bottom:16px;">
+            <table><thead><tr><th>Item</th><th>Thickness</th><th>Available (Sqft)</th></tr></thead>
+            <tbody><tr><td>Clear 8mm</td><td>8mm</td><td>5200</td></tr></tbody></table>`;
         } else if (mod === 'invoice') {
-          html += `
-            <p>Create New Invoice</p>
-            <div class="form-group"><label>Customer</label><select><option>Select Customer</option></select></div>
-            <div class="form-group"><label>Invoice Date</label><input type="date"></div>
-            <table>
-              <thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead>
-              <tbody><tr><td>Glass Sheet</td><td>50 sqft</td><td>₹100</td><td>₹5000</td></tr></tbody>
-            </table>
-            <button class="btn" style="margin-top:16px;">Generate Invoice</button>`;
+          html += `<p>Create Invoice</p>
+            <div class="form-group"><label>Customer</label><select><option>Select...</option></select></div>
+            <div class="form-group"><label>Date</label><input type="date"></div>
+            <table><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Total</th></tr></thead>
+            <tbody><tr><td>Glass Sheet</td><td>100</td><td>₹95</td><td>₹9500</td></tr></tbody></table>
+            <button class="btn" style="margin-top:16px;">Save & Print</button>`;
         } else if (mod === 'new-customer') {
-          html += `
-            <p>New Customer Entry</p>
-            <div class="form-group"><label>Customer Name</label><input type="text"></div>
+          html += `<p>New Customer</p>
+            <div class="form-group"><label>Name</label><input type="text"></div>
             <div class="form-group"><label>Mobile</label><input type="tel"></div>
-            <div class="form-group"><label>Address</label><textarea></textarea></div>
-            <button class="btn">Save Customer</button>`;
+            <div class="form-group"><label>Address</label><textarea rows="3"></textarea></div>
+            <button class="btn">Save</button>`;
         } else {
-          html += `<p>This module is fully functional in SP-7. Add forms, tables, calculations as needed.</p>`;
+          html += `<p>This module is ready for use in SP-7. Forms, tables, reports sab yahan add ho sakte hain.</p>`;
         }
 
         html += `</div>`;
@@ -320,5 +331,6 @@
       });
     });
   </script>
+
 </body>
 </html>
