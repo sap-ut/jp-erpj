@@ -7,122 +7,27 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #e5f0f9, #f0f7ff, #e0efff);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      color: #1e293b;
-      display: flex;
-    }
-
-    .sidebar {
-      width: 280px;
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(14px);
-      border-right: 1px solid rgba(226,232,240,0.8);
-      height: 100vh;
-      position: fixed;
-      overflow-y: auto;
-      box-shadow: 2px 0 12px rgba(0,0,0,0.05);
-    }
-
-    .sidebar-header {
-      padding: 18px 24px;
-      font-size: 1.45rem;
-      font-weight: 700;
-      color: #0f766e;
-      border-bottom: 1px solid rgba(226,232,240,0.7);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
+    body { min-height: 100vh; background: linear-gradient(135deg, #e5f0f9, #f0f7ff, #e0efff); font-family: system-ui, sans-serif; color: #1e293b; display: flex; }
+    .sidebar { width: 280px; background: rgba(255,255,255,0.94); backdrop-filter: blur(14px); border-right: 1px solid #e2e8f0; height: 100vh; position: fixed; overflow-y: auto; box-shadow: 2px 0 12px rgba(0,0,0,0.05); }
+    .sidebar-header { padding: 18px 24px; font-size: 1.45rem; font-weight: 700; color: #0f766e; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 12px; }
     .menu-section { margin: 16px 0; }
-
-    .menu-header {
-      padding: 12px 24px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #475569;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
+    .menu-header { padding: 12px 24px; font-size: 0.95rem; font-weight: 600; color: #475569; text-transform: uppercase; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
     .menu-header:hover { background: rgba(15,118,110,0.06); }
-
     .menu-header i.toggle { transition: transform 0.3s; }
     .menu-header.collapsed i.toggle { transform: rotate(-90deg); }
-
-    .menu-items {
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-    }
-
-    .menu-item {
-      padding: 12px 24px 12px 52px;
-      cursor: pointer;
-      transition: all 0.2s;
-      position: relative;
-    }
-
-    .menu-item::before {
-      content: '';
-      position: absolute;
-      left: 28px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 6px;
-      height: 6px;
-      background: #0f766e;
-      border-radius: 50%;
-      opacity: 0;
-    }
-
-    .menu-item:hover, .menu-item.active {
-      background: rgba(15,118,110,0.08);
-      color: #0f766e;
-    }
-
+    .menu-items { overflow: hidden; transition: max-height 0.4s ease; }
+    .menu-item { padding: 12px 24px 12px 52px; cursor: pointer; transition: all 0.2s; position: relative; }
+    .menu-item::before { content: ''; position: absolute; left: 28px; top: 50%; transform: translateY(-50%); width: 6px; height: 6px; background: #0f766e; border-radius: 50%; opacity: 0; }
+    .menu-item:hover, .menu-item.active { background: rgba(15,118,110,0.08); color: #0f766e; }
     .menu-item:hover::before, .menu-item.active::before { opacity: 1; }
-
-    .main {
-      margin-left: 280px;
-      flex: 1;
-      padding: 80px 32px 32px;
-    }
-
-    .shell-bar {
-      position: fixed;
-      top: 0; left: 280px; right: 0;
-      height: 56px;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(226,232,240,0.8);
-      display: flex;
-      align-items: center;
-      padding: 0 32px;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-
+    .main { margin-left: 280px; flex: 1; padding: 80px 32px 32px; }
+    .shell-bar { position: fixed; top: 0; left: 280px; right: 0; height: 56px; background: rgba(255,255,255,0.96); backdrop-filter: blur(16px); border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; padding: 0 32px; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
     .shell-bar .logo { font-weight: 700; font-size: 1.25rem; color: #0f766e; }
     .shell-bar .right { margin-left: auto; display: flex; gap: 24px; align-items: center; }
     .shell-bar i { font-size: 1.3rem; color: #475569; cursor: pointer; }
     .shell-bar i:hover { color: #0f766e; }
     .avatar { width: 36px; height: 36px; border-radius: 50%; background: #0f766e; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-
-    .module-page {
-      background: white;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-      border: 1px solid #e2e8f0;
-    }
-
+    .module-page { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; }
     .module-page h1 { color: #0f766e; font-size: 1.6rem; margin-bottom: 16px; }
     table { width: 100%; border-collapse: collapse; margin: 16px 0; }
     th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
@@ -130,9 +35,11 @@
     .form-group { margin-bottom: 16px; }
     .form-group label { display: block; margin-bottom: 6px; font-weight: 500; }
     .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
-    .btn { padding: 10px 20px; background: #0f766e; color: white; border: none; border-radius: 6px; cursor: pointer; }
+    .btn { padding: 10px 20px; background: #0f766e; color: white; border: none; border-radius: 6px; cursor: pointer; margin-right: 8px; }
     .btn:hover { background: #0d5f59; }
-    .btn-secondary { background: #64748b; color: white; }
+    .btn-secondary { background: #64748b; }
+    .btn-danger { background: #ef4444; }
+    .search-input { padding: 10px; width: 300px; margin-bottom: 16px; border: 1px solid #cbd5e1; border-radius: 6px; }
   </style>
 </head>
 <body>
@@ -247,90 +154,219 @@
     </div>
   </div>
 
-  <!-- Main Content Area -->
+  <!-- Main Content -->
   <div class="main">
-    <div id="content-area">
-      <!-- Default: Item Master loads -->
-      <div class="module-page">
-        <h1>Item Master</h1>
-        <p>Manage items, glass types, hardware etc. in SP-7.</p>
-        <button class="btn">+ Add New Item</button>
-        <table>
-          <thead>
-            <tr><th>Item Code</th><th>Description</th><th>Type</th><th>Unit</th><th>Actions</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>GLS-001</td><td>Clear Float 8mm</td><td>Glass</td><td>Sqft</td><td><button class="btn-secondary">Edit</button> <button class="btn-secondary">Delete</button></td></tr>
-            <tr><td>HRD-005</td><td>SS Patch Fitting</td><td>Hardware</td><td>Pcs</td><td><button class="btn-secondary">Edit</button> <button class="btn-secondary">Delete</button></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <div id="content-area"></div>
   </div>
 
   <script>
-    // Collapsible Menu Logic
-    document.querySelectorAll('.menu-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const targetId = header.getAttribute('data-target');
-        const items = document.getElementById(targetId);
-        const icon = header.querySelector('.toggle');
-        if (header.classList.contains('collapsed')) {
-          items.style.maxHeight = items.scrollHeight + 'px';
-          header.classList.remove('collapsed');
-        } else {
-          items.style.maxHeight = '0';
-          header.classList.add('collapsed');
-        }
-      });
-      // Auto-open Master's on load
-      if (header.getAttribute('data-target') === 'masters') {
-        header.click();
+    // In-memory Data (real app mein DB se aayega)
+    let items = [
+      { id: 1, code: 'GLS-001', desc: 'Clear Float Glass 8mm', type: 'Glass', unit: 'Sqft', price: 95 },
+      { id: 2, code: 'HRD-002', desc: 'SS Patch Fitting', type: 'Hardware', unit: 'Pcs', price: 450 }
+    ];
+    let customers = [
+      { id: 1, name: 'ABC Interiors', mobile: '9876543210', address: 'Delhi' }
+    ];
+    let glassStock = [
+      { id: 1, item: 'Clear Float 8mm', thickness: '8mm', available: 12000, location: 'Godown A' }
+    ];
+    let invoices = [];
+
+    // Render function
+    function renderModule(mod) {
+      const area = document.getElementById('content-area');
+      let html = `<div class="module-page"><h1>${mod.replace(/-/g, ' ').toUpperCase()}</h1>`;
+
+      if (mod === 'item-master') {
+        html += `
+          <input type="text" id="search-item" class="search-input" placeholder="Search by code or desc..." oninput="filterTable('items')">
+          <button class="btn" onclick="showAddForm('item')">+ Add New Item</button>
+          <div id="item-form" style="display:none; margin:20px 0; padding:16px; border:1px solid #e2e8f0; border-radius:8px;">
+            <div class="form-group"><label>Item Code</label><input id="item-code" type="text"></div>
+            <div class="form-group"><label>Description</label><input id="item-desc" type="text"></div>
+            <div class="form-group"><label>Type</label><select id="item-type"><option>Glass</option><option>Hardware</option><option>Film</option></select></div>
+            <div class="form-group"><label>Unit</label><input id="item-unit" type="text" value="Sqft"></div>
+            <div class="form-group"><label>Price (₹)</label><input id="item-price" type="number"></div>
+            <button class="btn" onclick="saveItem()">Save</button>
+            <button class="btn-secondary" onclick="cancelForm('item')">Cancel</button>
+          </div>
+          <table id="items-table">
+            <thead><tr><th>Code</th><th>Description</th><th>Type</th><th>Unit</th><th>Price</th><th>Actions</th></tr></thead>
+            <tbody id="items-body"></tbody>
+          </table>`;
+      } else if (mod === 'glass-stock') {
+        html += `
+          <input type="text" id="search-stock" class="search-input" placeholder="Search stock..." oninput="filterTable('stock')">
+          <button class="btn" onclick="showAddForm('stock')">+ Add Stock</button>
+          <table id="stock-table">
+            <thead><tr><th>Item</th><th>Thickness</th><th>Available (Sqft)</th><th>Location</th><th>Actions</th></tr></thead>
+            <tbody id="stock-body"></tbody>
+          </table>`;
+      } else if (mod === 'invoice') {
+        html += `
+          <p>Create New Invoice</p>
+          <div class="form-group"><label>Customer</label><select id="inv-customer"><option value="">Select...</option>\( {customers.map(c => `<option value=" \){c.id}">${c.name}</option>`).join('')}</select></div>
+          <div class="form-group"><label>Date</label><input type="date" id="inv-date" value="${new Date().toISOString().split('T')[0]}"></div>
+          <div class="form-group"><label>Item</label><select id="inv-item"><option value="">Select Item</option>\( {items.map(i => `<option value=" \){i.id}" data-price="\( {i.price}"> \){i.desc} (${i.price}/unit)</option>`).join('')}</select></div>
+          <div class="form-group"><label>Qty (Sqft/Pcs)</label><input type="number" id="inv-qty" min="1" value="1"></div>
+          <button class="btn" onclick="addLineItem()">Add Line Item</button>
+          <table id="inv-lines">
+            <thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th><th></th></tr></thead>
+            <tbody id="inv-body"></tbody>
+          </table>
+          <p><strong>Total: ₹<span id="inv-total">0</span></strong></p>
+          <button class="btn" onclick="saveInvoice()">Save Invoice</button>`;
+      } else if (mod === 'new-customer') {
+        html += `
+          <p>New Customer Entry</p>
+          <div class="form-group"><label>Name</label><input id="cust-name" type="text"></div>
+          <div class="form-group"><label>Mobile</label><input id="cust-mobile" type="tel"></div>
+          <div class="form-group"><label>Address</label><textarea id="cust-address" rows="3"></textarea></div>
+          <button class="btn" onclick="saveCustomer()">Save Customer</button>`;
+      } else if (mod.includes('report')) {
+        html += `<p>Report generation in progress... Showing summary for ${mod.replace(/-/g, ' ')}</p>
+          <p>Total Invoices: \( {invoices.length} | Total Billed Sqmt: <strong> \){invoices.reduce((sum, inv) => sum + inv.lines.reduce((s, l) => s + l.qty, 0), 0)}</strong></p>`;
+      } else {
+        html += `<p>Module under development - full functionality coming soon in SP-7.</p>`;
       }
+
+      html += `</div>`;
+      area.innerHTML = html;
+
+      if (mod === 'item-master') renderItemsTable();
+      if (mod === 'glass-stock') renderStockTable();
+    }
+
+    // Helper functions
+    function renderItemsTable(filter = '') {
+      const body = document.getElementById('items-body');
+      if (!body) return;
+      body.innerHTML = items.filter(i => 
+        i.code.toLowerCase().includes(filter.toLowerCase()) || i.desc.toLowerCase().includes(filter.toLowerCase())
+      ).map(i => `
+        <tr>
+          <td>\( {i.code}</td><td> \){i.desc}</td><td>\( {i.type}</td><td> \){i.unit}</td><td>₹${i.price}</td>
+          <td>
+            <button class="btn-secondary" onclick="editItem(${i.id})">Edit</button>
+            <button class="btn-danger" onclick="deleteItem(${i.id})">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderStockTable(filter = '') {
+      const body = document.getElementById('stock-body');
+      if (!body) return;
+      body.innerHTML = glassStock.filter(s => 
+        s.item.toLowerCase().includes(filter.toLowerCase())
+      ).map(s => `
+        <tr>
+          <td>\( {s.item}</td><td> \){s.thickness}</td><td>\( {s.available}</td><td> \){s.location}</td>
+          <td><button class="btn-secondary" onclick="editStock(${s.id})">Edit</button></td>
+        </tr>
+      `).join('');
+    }
+
+    function filterTable(type) {
+      const val = document.getElementById(`search-${type}`).value;
+      if (type === 'items') renderItemsTable(val);
+      if (type === 'stock') renderStockTable(val);
+    }
+
+    function showAddForm(type) {
+      document.getElementById(`${type}-form`).style.display = 'block';
+    }
+
+    function cancelForm(type) {
+      document.getElementById(`${type}-form`).style.display = 'none';
+    }
+
+    function saveItem(editId = null) {
+      const code = document.getElementById('item-code').value;
+      const desc = document.getElementById('item-desc').value;
+      const type = document.getElementById('item-type').value;
+      const unit = document.getElementById('item-unit').value;
+      const price = parseFloat(document.getElementById('item-price').value);
+
+      if (!code || !desc || !price) return alert('Fill all fields!');
+
+      if (editId) {
+        const item = items.find(i => i.id === editId);
+        item.code = code; item.desc = desc; item.type = type; item.unit = unit; item.price = price;
+      } else {
+        items.push({ id: items.length + 1, code, desc, type, unit, price });
+      }
+
+      renderItemsTable();
+      cancelForm('item');
+    }
+
+    function editItem(id) {
+      const item = items.find(i => i.id === id);
+      document.getElementById('item-code').value = item.code;
+      document.getElementById('item-desc').value = item.desc;
+      document.getElementById('item-type').value = item.type;
+      document.getElementById('item-unit').value = item.unit;
+      document.getElementById('item-price').value = item.price;
+      showAddForm('item');
+      // For save, pass id somehow - here using global or modify saveItem to check
+      // Simple: add hidden input or use onclick change
+      document.querySelector('#item-form button[onclick^="saveItem"]').setAttribute('onclick', `saveItem(${id})`);
+    }
+
+    function deleteItem(id) {
+      if (!confirm('Delete this item?')) return;
+      items = items.filter(i => i.id !== id);
+      renderItemsTable();
+    }
+
+    function saveCustomer() {
+      const name = document.getElementById('cust-name').value;
+      const mobile = document.getElementById('cust-mobile').value;
+      const address = document.getElementById('cust-address').value;
+      if (!name) return alert('Name required!');
+      customers.push({ id: customers.length + 1, name, mobile, address });
+      alert('Customer saved!');
+      // Clear form
+      document.getElementById('cust-name').value = '';
+      document.getElementById('cust-mobile').value = '';
+      document.getElementById('cust-address').value = '';
+    }
+
+    // More functions for invoice, stock etc. can be expanded similarly
+
+    function addLineItem() {
+      // Dummy for now - expand as needed
+      alert('Line item added (expand for full invoice lines)');
+    }
+
+    function saveInvoice() {
+      alert('Invoice saved! Stock deducted in real system.');
+      // Deduct stock logic here in future
+    }
+
+    // Collapsible
+    document.querySelectorAll('.menu-header').forEach(h => {
+      h.addEventListener('click', () => {
+        const target = document.getElementById(h.dataset.target);
+        h.classList.toggle('collapsed');
+        target.style.maxHeight = h.classList.contains('collapsed') ? '0' : target.scrollHeight + 'px';
+      });
+      if (h.dataset.target === 'masters') h.click(); // auto open
     });
 
-    // Load module content on click
+    // Module click
     document.querySelectorAll('.menu-item').forEach(item => {
       item.addEventListener('click', () => {
         document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
         item.classList.add('active');
-
-        const mod = item.getAttribute('data-module');
-        let html = `<div class="module-page"><h1>${mod.replace(/-/g, ' ').toUpperCase()}</h1>`;
-
-        // Example realistic pages for key modules
-        if (mod === 'item-master') {
-          html += `<p>Item Master - Add/edit items</p>
-            <button class="btn">+ Add New</button>
-            <table><thead><tr><th>Code</th><th>Name</th><th>Category</th><th>Actions</th></tr></thead>
-            <tbody><tr><td>ITM001</td><td>Toughened 10mm</td><td>Glass</td><td><button class="btn-secondary">Edit</button></td></tr></tbody></table>`;
-        } else if (mod.includes('glass-stock') || mod === 'glass-stock-report') {
-          html += `<p>Glass Stock Overview</p>
-            <input type="text" placeholder="Search stock..." style="padding:10px; width:300px; margin-bottom:16px;">
-            <table><thead><tr><th>Item</th><th>Thickness</th><th>Available (Sqft)</th></tr></thead>
-            <tbody><tr><td>Clear 8mm</td><td>8mm</td><td>5200</td></tr></tbody></table>`;
-        } else if (mod === 'invoice') {
-          html += `<p>Create Invoice</p>
-            <div class="form-group"><label>Customer</label><select><option>Select...</option></select></div>
-            <div class="form-group"><label>Date</label><input type="date"></div>
-            <table><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Total</th></tr></thead>
-            <tbody><tr><td>Glass Sheet</td><td>100</td><td>₹95</td><td>₹9500</td></tr></tbody></table>
-            <button class="btn" style="margin-top:16px;">Save & Print</button>`;
-        } else if (mod === 'new-customer') {
-          html += `<p>New Customer</p>
-            <div class="form-group"><label>Name</label><input type="text"></div>
-            <div class="form-group"><label>Mobile</label><input type="tel"></div>
-            <div class="form-group"><label>Address</label><textarea rows="3"></textarea></div>
-            <button class="btn">Save</button>`;
-        } else {
-          html += `<p>This module is ready for use in SP-7. Forms, tables, reports sab yahan add ho sakte hain.</p>`;
-        }
-
-        html += `</div>`;
-        document.getElementById('content-area').innerHTML = html;
+        renderModule(item.dataset.module);
       });
     });
-  </script>
 
+    // Initial load
+    renderModule('item-master');
+  </script>
 </body>
 </html>
